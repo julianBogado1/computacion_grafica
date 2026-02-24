@@ -12,7 +12,7 @@ export const AIRPLANE_KEYS = {
 
 /**
  * Controlador FBW simplificado y predecible
- * - Forward = -Z, Up = +Y, Right = +X
+ * - Forward = Z, Up = +Y, Right = +X
  * - Targets de pitch/bank con filtros de 1er orden.
  * - Yaw/Heading:
  *    * Baja velocidad: taxi (◀/▶ giran el rumbo directamente).
@@ -202,7 +202,7 @@ export class AirplaneController {
 
     // (invertido como acordamos: Down ≡ Up, Left ≡ Right)
     const pitchCmd = ( dn - up ) * this.pitchCmdRate;   // rad/s
-    const bankCmd  = ( lt - rt ) * this.bankCmdRate;    // rad/s
+    const bankCmd  = ( rt - lt ) * this.bankCmdRate;    // rad/s
 
     // Objetivo de pitch/bank (integrados con límites)
     this.pitchTarget = THREE.MathUtils.clamp(this.pitchTarget + pitchCmd * dt, -this.pitchLimit, this.pitchLimit);
@@ -233,7 +233,7 @@ export class AirplaneController {
     } else {
       // viraje coordinado por alabeo (predecible y suave)
       const speedNorm = THREE.MathUtils.clamp(this.speed / Math.max(this.maxSpeed, 1e-3), 0, 1);
-      this.heading += this.turnRateGain * Math.tan(this.bank) * speedNorm * dt;
+      this.heading -= this.turnRateGain * Math.tan(this.bank) * speedNorm * dt;
     }
 
     // 4) Construir orientación deseada y aplicarla (Euler YXZ: yaw→pitch→roll)
