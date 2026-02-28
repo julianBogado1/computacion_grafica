@@ -145,14 +145,12 @@ shipGroup.add(ship);
 const turretObj = shipParts.turret as THREE.Object3D | null;
 const cannonObj = shipParts.cannon as THREE.Object3D | null;
 const cannonInitialRotationZ = cannonObj ? cannonObj.rotation.z : 0;
-turretObj?.add(new THREE.AxesHelper(30));
-cannonObj?.add(new THREE.AxesHelper(20));
 
 const plane = createPlane();
 plane.scale.set(0.25, 0.25, 0.25);
 plane.position.set(PLANE_INITIAL_X, PLANE_INITIAL_Y, PLANE_INITIAL_Z);
 plane.rotation.y = PLANE_INITIAL_ANGLE;
-plane.add(new THREE.AxesHelper(50));
+
 
 scene.add(island, water, shipGroup, plane);
 

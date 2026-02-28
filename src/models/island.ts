@@ -42,7 +42,6 @@ export async function createIsland(): Promise<THREE.Group> {
   // mesh.rotation.y = Math.PI / 3;
 
   const airport = createAirport();
-  airport.add(new THREE.AxesHelper(100));
   airport.position.copy(AIRPORT_POSITION);
   airport.rotation.y = AIRPORT_ROTATION_Y;
 
